@@ -101,17 +101,17 @@ client.on('message', message =>{
 			
 			
 			
-			if (message.author.id == '401534600741912576'){
-				message.member.roles.add('768685156625022987');
-			}else {
-				message.channel.send('nice try bucko');
-			}
+			// if (message.author.id == '401534600741912576'){
+				// message.member.roles.add('768685156625022987');
+			// }else {
+				// message.channel.send('nice try bucko');
+			// }
             break;
 		case 'everyone':
 			message.channel.send('@everyone');
 			break;
 		case 'james':
-			message.channel.send('fuck james and fuck ur mom. OVERTHROW JAMES LONG LIVE THE ANTI JAMES REVOLUTION :salute: :salute: :salute:');
+			message.channel.send('fuck james and fuck ur mom. OVERTHROW JAMES LONG LIVE THE ANTI JAMES REVOLUTION <:salute:756303104428998737> <:salute:756303104428998737> <:salute:756303104428998737>');
 			const jamesEmbed = new Discord.MessageEmbed()
 				.setColor('#AE53E8')
 				.setTitle('JAMES NEEDS TO GO')
