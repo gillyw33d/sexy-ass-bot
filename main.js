@@ -6,6 +6,7 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 const uptime = Date.now();
+const gillyID = '401534600741912576';
 
 
 
@@ -20,7 +21,48 @@ client.on('ready', () => {
  });
 
 
-
+const helpEmbed = new Discord.MessageEmbed()
+	.setTimestamp()
+	.setColor('0F0F0F')
+	.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492')
+	.setTitle('Help')
+	.addFields(
+		{
+			name: 'sup?',
+			value: 'what\'s up lol',
+		},
+	)
+	.addFields(
+		{
+			name: 'ping',
+			value: 'pong',
+		}
+	)
+	.addFields(
+		{
+			name: 'uptime',
+			value: 'bot uptime',
+		}
+	)
+	.addFields(
+		{
+			name: 'everyone',
+			value: 'ping everyone for no reason lol',
+		}
+	)
+	.addFields(
+		{
+			name: 'james',
+			value: 'anti revolutionary idiot. also kinda cute. what? lol nvm',
+		}
+	)
+	.addFields(
+		{
+			name: 'help',
+			value: 'display this message',
+		}
+	)
+;
 
 
 
@@ -57,7 +99,7 @@ client.on('message', message =>{
 	}
 
 
-    switch(command){
+    switch(command.toLowerCase()){
         case 'sup?':
             message.channel.send('sup lol');
             break;
@@ -87,9 +129,6 @@ client.on('message', message =>{
         case 'hey':
 			message.delete();
 			message.channel.send('hey lol whats up wyd');
-			
-			
-			
 			// message.guild.roles.create({
 				// data: {
 					// name: 'hey lo.. l',
@@ -101,7 +140,7 @@ client.on('message', message =>{
 			
 			
 			
-			// if (message.author.id == '401534600741912576'){
+			// if (message.author.id == gillyID){
 				// message.member.roles.add('768685156625022987');
 			// }else {
 				// message.channel.send('nice try bucko');
@@ -120,13 +159,17 @@ client.on('message', message =>{
 				.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492');
 			message.channel.send(jamesEmbed);
 			break;
+		case 'help':
+			message.channel.send(helpEmbed);
+			break;
         default:
 			message.channel.send('command not found');
-			console.error(command);
 			break;
     }
 })
+
 client.on('message', message =>{
+	const messageCheck = message.content.toLowerCase();
     if (!message.author.bot){
 		userMention = '<@' + message.author.id + '>';
         console.group("message");
@@ -136,6 +179,9 @@ client.on('message', message =>{
         console.log(message.embeds);
 		console.log(message.mentions.users);
         console.groupEnd();
+		
+		if (messageCheck.includes('them')) message.channel.send('(((THEM)))');
+		if (messageCheck.includes('they')) message.channel.send('(((THEY)))');
 //        console.group("other id stuff")
 //        console.log(message);
 //        console.groupEnd();
@@ -147,20 +193,17 @@ client.on('message', message =>{
 //            .catch(console.error);
 //    }
 
-    if (message.content.toLowerCase() == 'lol') message.channel.send('league of legends :3');
-    if (message.content.toLowerCase() == 'esex when?') message.channel.send('esex now. ' + userMention);
-    if (message.content.toLowerCase() == 'wow') message.channel.send('world of warcraft >:3');
-    if (message.content.toLowerCase().includes('stfu')) message.channel.send('stuf whore ' + userMention);
-	if (message.content.toLowerCase().includes('sup')) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
-	if ((message.content.toLowerCase().includes('nigger') || message.content.toLowerCase().includes('nigga')) && !message.author.id == '401534600741912576') {
-		message.delete();
-		message.channel.send(userMention + ' is a raging racist :clown:');
+    if (messageCheck == 'lol') message.channel.send('league of legends :3');
+    if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
+    if (messageCheck == 'wow') message.channel.send('world of warcraft >:3');
+    if (messageCheck.includes('stfu')) message.channel.send('stuf whore ' + userMention);
+	if (messageCheck.includes('sup')) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
+	if (messageCheck.includes('nigger') || messageCheck.includes('nigga')) {
+		message.channel.send(userMention + ' is a racist fuck :clown:');
 	}
+	if (messageCheck.includes('femcel') && !message.author.bot) message.channel.send('femcel is so fucking hot i want her so fucking bad if i could have one day with her oh what i would do. the sex would be immaculate, incredible, revolutionary even. then, the cuddles. oh how we would cuddle. hours of us holding each other, never letting go. i\'m quite turned on just thinking about it to be honest. we would fall asleep in each other\'s arms, me, the dom, obviously being the big spoon, would hold her tight to my chest. smelling her hair, maybe a butt clench or two.');
+	if (messageCheck.includes('dale') && !message.author.bot) message.channel.send('oh my god dale is so fucking hot i want him so fucking bad. when he goes schizo and starts speaking russian it makes me so fucking hrony. i mean uhhh... (づ｡◕‿‿◕｡)づ cummies pls (づ｡◕‿‿◕｡)づ');
 	
-	if (!message.author.bot){
-		if (message.content.toLowerCase().includes('them')) message.channel.send('(((THEM)))');
-		if (message.content.toLowerCase().includes('they')) message.channel.send('(((THEY)))');
-	}
 })
 
 client.login('NzAwMDk1MzM4NDU0NzEyNDAx.Xpd8lw.Db3CmoRAhOOVMLU9eg0LKm90l7Y');
