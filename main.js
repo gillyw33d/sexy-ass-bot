@@ -271,4 +271,4 @@ client.on('message', message =>{
 	
 })
 
-client.login('NzAwMDk1MzM4NDU0NzEyNDAx.Xpd8lw.F8W9CfuNoIH6ucNb3tXyjjas2FQ');
+client.login('');
