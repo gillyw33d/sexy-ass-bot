@@ -8,6 +8,18 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 const uptime = Date.now();
 const gillyID = '401534600741912576';
 
+const radlibs = new Array('vaush', 'xander', 'contra', 'contrapoints', 'philosophytube', 'olly', 'thoughtslime', 'thought slime', 'philosophy tube', 'xanderhal');
+
+const winston = require('winston');
+const logger = winston.createLogger({
+	level: 'info',
+	transports: [
+		new winston.transports.File({ filename: 'log.txt' })
+	],
+});
+
+
+
 
 
 //for(const file of commandFiles){
@@ -20,6 +32,13 @@ client.on('ready', () => {
 	client.user.setActivity('doing ur mom doing doing ur mom', {type: 'PLAYING'});
  });
 
+const uyghurPillEmbed = new Discord.MessageEmbed()
+	.setTitle('Uyghur Pill')
+	.setColor('#E0FFFF')
+	.setDescription('[What Western Media won\'t tell you about the Uyghurs](https://worldaffairs.blog/2019/07/05/xinjiang-and-uyghurs-what-youre-not-being-told/) \n [Xinjiang Regulations](https://www.chinalawtranslate.com/en/explainer-on-xinjiang-regulations/)')
+	.setImage('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbylinetimes.com%2Fwp-content%2Fuploads%2F2020%2F01%2FUYGHUR-IDENTITY-scaled.jpg&f=1&nofb=1')
+	.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492')
+	.setTimestamp();
 
 const helpEmbed = new Discord.MessageEmbed()
 	.setTimestamp()
@@ -63,7 +82,20 @@ const helpEmbed = new Discord.MessageEmbed()
 		}
 	)
 ;
+const jamesEmbed = new Discord.MessageEmbed()
+	.setColor('#AE53E8')
+	.setTitle('JAMES NEEDS TO GO')
+	.setTimestamp()
+	.setImage('https://media.discordapp.net/attachments/748381226175561732/770076486354468874/unknown.png?width=1010&height=702')
+	.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492');
 
+const marxEmbed = new Discord.MessageEmbed()
+	.setColor('#E4C256')
+	.setTitle('Karl Marx')
+	.setTimestamp()
+	.setDescription('Notable works: [The Communist Manifesto](https://www.marxists.org/archive/marx/works/1848/communist-manifesto/index.htm)')
+	.setImage('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Karl_Marx_001.jpg/800px-Karl_Marx_001.jpg')
+	.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492');
 
 
 client.on('message', message =>{
@@ -93,6 +125,7 @@ client.on('message', message =>{
 	}
 	if (message.content.startsWith(prefix + 'echo')){
 		var out = message.content.slice(5);
+	if (out.includes('@everyone') || out.includes('@here')) return;
 		message.delete();
 		message.channel.send(out);
 		return;
@@ -146,21 +179,21 @@ client.on('message', message =>{
 				// message.channel.send('nice try bucko');
 			// }
             break;
-		case 'everyone':
-			message.channel.send('@everyone');
-			break;
+		// case 'everyone':
+			// message.channel.send('@everyone');
+			// break;
 		case 'james':
 			message.channel.send('fuck james and fuck ur mom. OVERTHROW JAMES LONG LIVE THE ANTI JAMES REVOLUTION <:salute:756303104428998737> <:salute:756303104428998737> <:salute:756303104428998737>');
-			const jamesEmbed = new Discord.MessageEmbed()
-				.setColor('#AE53E8')
-				.setTitle('JAMES NEEDS TO GO')
-				.setTimestamp()
-				.setImage('https://media.discordapp.net/attachments/748381226175561732/770076486354468874/unknown.png?width=1010&height=702')
-				.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492');
 			message.channel.send(jamesEmbed);
 			break;
 		case 'help':
 			message.channel.send(helpEmbed);
+			break;
+		case 'marx':
+			message.channel.send(marxEmbed);
+			break;
+		case 'uyghur':
+			message.channel.send(uyghurPillEmbed);
 			break;
         default:
 			message.channel.send('command not found');
@@ -169,19 +202,32 @@ client.on('message', message =>{
 })
 
 client.on('message', message =>{
+	// const channel = new Discord.TextChannel('748381226175561729', '771193599068078090');
 	const messageCheck = message.content.toLowerCase();
+	member = message.author;
     if (!message.author.bot){
 		userMention = '<@' + message.author.id + '>';
         console.group("message");
-        console.log('user:' + message.author.username + message.author.id);
-        console.log('channel:' + message.channel.name);
+        console.log('user:' + message.author.username + ' ' + message.author.id);
+        console.log('channel:' + message.channel.name + ' ' + message.channel.id);
+		console.log('guild:' + message.guild);
         console.log(message.content);
-        console.log(message.embeds);
-		console.log(message.mentions.users);
+        // console.log(message.embeds);
+		// console.log(message.mentions.users);
         console.groupEnd();
 		
-		if (messageCheck.includes('them')) message.channel.send('(((THEM)))');
-		if (messageCheck.includes('they')) message.channel.send('(((THEY)))');
+		var output = message.author.username + ' ' + message.author.id + ' \n ' + message.content;
+		logger.log({
+			level: 'info',
+			message: output,
+		});
+	// channel.send('user:' + message.author.username + ' ' + message.author.id);
+	// channel.send('channel:' + message.channel.name);
+	// channel.send('guild:' + message.guild);
+	// channel.send(message.content);
+		
+		// if (messageCheck.includes('them')) message.channel.send('(((THEM)))');
+		// if (messageCheck.includes('they')) message.channel.send('(((THEY)))');
 //        console.group("other id stuff")
 //        console.log(message);
 //        console.groupEnd();
@@ -193,17 +239,36 @@ client.on('message', message =>{
 //            .catch(console.error);
 //    }
 
-    if (messageCheck == 'lol') message.channel.send('league of legends :3');
+    if (messageCheck == 'lol ') message.channel.send('league of legends :3');
+	if (messageCheck.includes('penis')) message.channel.send('8==================D');
+	if (messageCheck.includes('boob')) message.channel.send('o o');
     if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
     if (messageCheck == 'wow') message.channel.send('world of warcraft >:3');
-    if (messageCheck.includes('stfu')) message.channel.send('stuf whore ' + userMention);
-	if (messageCheck.includes('sup')) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
+    // if (messageCheck.includes('stfu')) message.channel.send('stuf whore ' + userMention);
+	if (messageCheck == 'sup' && !message.author.bot) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
 	if (messageCheck.includes('nigger') || messageCheck.includes('nigga')) {
 		message.channel.send(userMention + ' is a racist fuck :clown:');
 	}
+	if (messageCheck.split(' ').join('').includes('nigger') || messageCheck.split(' ').join('').includes('nigga')) {
+		// message.delete();
+		message.channel.send(userMention + ' is a racist fuck :clown:')
+		// message.member.roles.add('753773649315627109');
+	}
+	
+	for (var i = 0; i < radlibs.length; i ++){
+		if (message.author.id == '401534600741912576') break;
+		if (messageCheck.includes(radlibs[i])) {
+			return message.channel.send("fuck yui radlib watcher absolute scum of leftism you are a stani on society fuck you i hate you \>:(");
+		}
+	}
+	
+	
+	
+	
+	
 	if (messageCheck.includes('femcel') && !message.author.bot) message.channel.send('femcel is so fucking hot i want her so fucking bad if i could have one day with her oh what i would do. the sex would be immaculate, incredible, revolutionary even. then, the cuddles. oh how we would cuddle. hours of us holding each other, never letting go. i\'m quite turned on just thinking about it to be honest. we would fall asleep in each other\'s arms, me, the dom, obviously being the big spoon, would hold her tight to my chest. smelling her hair, maybe a butt clench or two.');
 	if (messageCheck.includes('dale') && !message.author.bot) message.channel.send('oh my god dale is so fucking hot i want him so fucking bad. when he goes schizo and starts speaking russian it makes me so fucking hrony. i mean uhhh... (づ｡◕‿‿◕｡)づ cummies pls (づ｡◕‿‿◕｡)づ');
 	
 })
 
-client.login('');
+client.login('NzAwMDk1MzM4NDU0NzEyNDAx.Xpd8lw.F8W9CfuNoIH6ucNb3tXyjjas2FQ');
