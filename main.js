@@ -456,4 +456,3 @@ client.on('message', message =>{
 	
 })
 
-client.login('NzAwMDk1MzM4NDU0NzEyNDAx.Xpd8lw.DalxJjYWC8_ZmPzf2IKzz_IUcNM');
