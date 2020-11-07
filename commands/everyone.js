@@ -1,12 +1,4 @@
-var today = new Date();
-var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-var today = new Date();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var start = Date.now();
-
-
-
-
+const gillyID = '401534600741912576';
 module.exports = {
 	name: 'everyone',
 	description: 'ugly ass bitch ass dude',
