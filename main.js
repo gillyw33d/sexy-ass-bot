@@ -1,3 +1,6 @@
+/*
+ * CONSTANTS DECLARED
+ */
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
@@ -8,20 +11,21 @@ const embeds = require('./embeds.json');
 const gillyID = '401534600741912576';
 const radlibs = new Array('vaush', 'xander', 'contra ', 'contrapoints', 'philosophytube', ' olly ', 'thoughtslime', 'thought slime', 'philosophy tube', 'xanderhal');
 const curse = new Array('fuck', 'shit', 'pussy', 'cunt', 'nigga', 'nigger', 'dick', 'ass', 'bitch', 'cock', 'damn', 'piss', 'tit', 'bastard', 'wanker', 'twat');
+// LOGGER INITIALIZE
 const winston = require('winston');
-const logger = winston.createLogger({
-	level: 'info',
-	transports: [
-		new winston.transports.File({ filename: 'log.txt' })
-	],
-});
-const commandLogger = winston.createLogger({
-	level: 'warn',
-	transports: [
-		new winston.transports.File({ filename: 'commmandLog.txt' })
-	],
-});
-
+	const logger = winston.createLogger({
+		level: 'info',
+		transports: [
+			new winston.transports.File({ filename: 'log.txt' })
+		],
+	});
+	const commandLogger = winston.createLogger({
+		level: 'warn',
+		transports: [
+			new winston.transports.File({ filename: 'commmandLog.txt' })
+		],
+	});
+// ADD COMMAND FILES
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
@@ -68,12 +72,15 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	client.channels.cache.get('770502076912369754').send(editedEmbed);
 })
 /* 
- * MESSAGE HERE
+ * MESSAGE COMMANDS HERE
  */ 
 client.on('message', message =>{
-    if(!message.content.startsWith(prefix)) return;
+	// if message doesn't have the prefix, immediately stop
+	if (!message.content.startsWith(prefix)) return;
+	// idk what this is, copy pasted code lol
     const args = message.content.slice(prefix.length).split(/ + /);
-    const command = args.shift().toLowerCase();
+	const command = args.shift().toLowerCase();
+	// used in 0x22
     var member = message.author
 
 
@@ -101,6 +108,7 @@ client.on('message', message =>{
 		return;
 	}
 	// DYNAMIC COMMAND HANDLER
+	// copy pasted code lol
 	try {
 		client.commands.get(command).execute(message, args);
 	} catch (error) {
@@ -111,7 +119,7 @@ client.on('message', message =>{
 			message: error
 		});
 	}
-	// IGNORE THIS GARBAGE CODE
+	// IGNORE THIS, GARBAGE CODE
 	if ((args == '0x22') && (message.author.id == gillyID)) {
 		var a = ['ve9s', 'Agv5igXVlI4GBa==', 'CM9SzunYzwf0zq==', 'zgvSzxrL', 'BMLJzsb0CNKGyG==', 'BwvTyMvY', 'C2vUza==', 'qurnsu5ju1rsqq==', 'ywrK', 'y2HHBM5LBa==', 'DwnRBW==', 'y3jLyxrL', 'CM9Szxm=', 'z3vPBgq='];
 		(function (b, c) {
@@ -184,6 +192,11 @@ client.on('message', message =>{
 client.on('message', message =>{
 	const messageCheck = message.content.toLowerCase();
 	member = message.author;
+	function penisLength(min, max) {
+		return (Math.random() * (max - min) + min);
+	}
+	
+	
 
 	// CONSOLE LOGGING HERE
     if (!message.author.bot){
@@ -290,7 +303,15 @@ client.on('message', message =>{
 	// RESPONSES
 	if (!(message.channel.id == '748381226175561732')) {
 		if (messageCheck == 'lol ') message.channel.send('league of legends :3');
-		if (messageCheck.includes('penis') || messageCheck.includes('cock')) message.channel.send('8==================D');
+		if (messageCheck.includes('penis') || messageCheck.includes('cock') || messageCheck.includes('dick')) {
+			var length = penisLength(5, 30);
+			var penis = new Array();
+			for (var i = 0; i < Math.floor(length); i++) {
+				penis.push('=');
+				
+			}
+			message.channel.send('8' + penis.join('') + 'D');
+		}
 		if (messageCheck.includes('boob')) message.channel.send('o o');
 		if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
 		if (messageCheck == 'wow') message.channel.send('world of warcraft >:3');
@@ -304,7 +325,7 @@ client.on('message', message =>{
 		if (message.author.bot || (message.author.id == gillyID)) return;
 		message.delete();
 		message.channel.send(userMention + ' is a racist fuck :clown:')
-		if (message.guild.id == '748381226175561729'){
+		if (message.guild.id == '748381226175561729') {
 			message.member.roles.add('753773649315627109');
 			const racistEmbed = new Discord.MessageEmbed()
 				.setTitle('Racist Word Log')
