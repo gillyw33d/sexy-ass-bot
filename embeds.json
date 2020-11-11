@@ -1,21 +1,31 @@
 {
   "footer": "lol hey.. :smirk: ad me :flushed: gilly#0492",
-  "marx": {
-    "color": "#E4C256",
-    "title": "Karl Marx",
-    "description": "Notable works: [The Communist Manifesto](https://www.marxists.org/archive/marx/works/1848/communist-manifesto/index.htm)",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Karl_Marx_001.jpg/800px-Karl_Marx_001.jpg"
-  },
-  "uyghur": {
-    "title": "Uyghur Pill",
-    "color": "#E0FFFF",
-    "description": "[What Western Media won\\'t tell you about the Uyghurs](https://worldaffairs.blog/2019/07/05/xinjiang-and-uyghurs-what-youre-not-being-told/) \\n [Xinjiang Regulations](https://www.chinalawtranslate.com/en/explainer-on-xinjiang-regulations/)",
-    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbylinetimes.com%2Fwp-content%2Fuploads%2F2020%2F01%2FUYGHUR-IDENTITY-scaled.jpg&f=1&nofb=1"
+  "gyroon": {
+    "color": "#43EC64",
+    "image": "https://media.discordapp.net/attachments/748381226175561732/774061604857577472/IMG_20201106_000357_021.jpg",
+    "title": "gyroon needa be stopped this mf too fucking horny"
   },
   "james": {
     "color": "#AE53E8",
-    "title": "JAMES NEEDS TO GO",
     "description": "fuck james and fuck ur mom. OVERTHROW JAMES LONG LIVE THE ANTI JAMES REVOLUTION <:salute:756303104428998737> <:salute:756303104428998737> <:salute:756303104428998737>",
-    "image": "https://media.discordapp.net/attachments/748381226175561732/770076486354468874/unknown.png?width=1010&height=702"
+    "image": "https://media.discordapp.net/attachments/748381226175561732/770076486354468874/unknown.png?width=1010&height=702",
+    "title": "JAMES NEEDS TO GO"
+  },
+  "marx": {
+    "color": "#E4C256",
+    "description": "Notable works: [The Communist Manifesto](https://www.marxists.org/archive/marx/works/1848/communist-manifesto/index.htm)",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Karl_Marx_001.jpg/800px-Karl_Marx_001.jpg",
+    "title": "Karl Marx"
+  },
+  "omni": {
+    "color": "#CA98E0",
+    "description": "chill the fuck out",
+    "title": "bro omni"
+  },
+  "uyghur": {
+    "color": "#E0FFFF",
+    "description": "[What Western Media won\\'t tell you about the Uyghurs](https://worldaffairs.blog/2019/07/05/xinjiang-and-uyghurs-what-youre-not-being-told/) \n [Xinjiang Regulations](https://www.chinalawtranslate.com/en/explainer-on-xinjiang-regulations/) \n [Big Chungus Says Wholesome 100](https://kekma.ga)",
+    "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbylinetimes.com%2Fwp-content%2Fuploads%2F2020%2F01%2FUYGHUR-IDENTITY-scaled.jpg&f=1&nofb=1",
+    "title": "Uyghur Pill"
   }
 }

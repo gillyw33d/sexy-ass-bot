@@ -4,11 +4,16 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
+const chalk = require('chalk');
 client.commands = new Discord.Collection();
+//tbh idk what this does lol something about the file system
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const { prefix, token } = require('./config.json');
+//get the required information from the config file
+const { prefix, token, hey } = require('./config.json');
 const embeds = require('./embeds.json');
+//my id
 const gillyID = '401534600741912576';
+//radlib and curse word arrays lol
 const radlibs = new Array('vaush', 'xander', 'contra ', 'contrapoints', 'philosophytube', ' olly ', 'thoughtslime', 'thought slime', 'philosophy tube', 'xanderhal');
 const curse = new Array('fuck', 'shit', 'pussy', 'cunt', 'nigga', 'nigger', 'dick', 'ass', 'bitch', 'cock', 'damn', 'piss', 'tit', 'bastard', 'wanker', 'twat');
 // LOGGER INITIALIZE
@@ -25,6 +30,7 @@ const winston = require('winston');
 			new winston.transports.File({ filename: 'commmandLog.txt' })
 		],
 	});
+
 // ADD COMMAND FILES
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -32,10 +38,44 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', () => {
-    console.log('Hey bbg :smirk:');
-	client.user.setActivity('doing ur mom doing doing ur mom', {type: 'PLAYING'});
- });
+    console.log(chalk.blue('Hey bbg :smirk:'));
+	client.user.setActivity('doing ur mom doing doing ur mom', { type: 'PLAYING' });
+});
 
+/* 
+ * OMNI SCHIZO MOMENT HERE
+*/
+
+////omni function
+//function omniSchizo(interval) {
+//	setTimeout(messageSend(), interval);
+//}
+////message send function
+//function messageSend() {
+//	//get omni's id
+//	const omni = client.users.fetch('401534600741912576');
+//	//schizo code
+//	var chars = 'Á À Â Ā Ä Ã Å Æ É È Ê Ē Ë Í Ì Î Ī Ï ï ī î ì ë ē ê è é æ å ã ä ā â à á Ó Ò Ô Ō Ö Õ Ø Œ Ú Ù Û Ū Ü Ŵ Ý Ÿ Ŷ ŷ ÿ ý ŵ ü ū û ù ú œ ø õ ö ō ô ò ó Þ Ç Ð Ñ ẞ ß ñ ð ç þ « » “ „ ” ‘ ‚ ’ — – ¿ ¡ · … @ Q W E R T Y U I O P A S D F G H J K L Z X C V B N M q w e r t y u i o p a s d f g h j k l z x c v b n m , . / ; \' [ ] 1 2 3 4 5 6 7 8 9 0 - = + _ ) ( * & ^ % $ # ! { } | : " < > ? Q W E R T Y U I O P A S D F G H J K L Z X C V B N M q w e r t y u i o p a s d f g h j k l z x c v b n m 1 2 3 4 5 6 7 8 9 0';
+//	chars.split(' ');
+//	function randomIndex(min, max) {
+//		return (Math.random() * (max - min) + min);
+//	}
+//	var output = new Array();
+//	for (var i = 0; i < (Math.random() * 10000); i++) {
+//		var index = randomIndex(0, 560);
+//		if (index > chars.length) {
+//			index = index - chars.length;
+//		}
+//		output.push(chars[(Math.floor(index))]);
+//	}
+//	//send omni message
+//	return;
+//	//client.omni.send(output.join(''));
+//}
+
+//omniSchizo(1000);
+
+var om = '533850977166688258';
 /*
  * MESSAGE DELETE HERE
  */
@@ -83,9 +123,9 @@ client.on('message', message =>{
 	// used in 0x22
     var member = message.author
 
-
 	// AVATAR COMMAND
-	if (message.content.startsWith(prefix + 'av')){
+	if (message.content.startsWith(prefix + 'av')) {
+		//still trying to do something fancy with @'ing people but i'm stupid and retarded and don't know how nor have the energy to lol
 		var av = message.author.avatarURL();
 		const avEmbed = new Discord.MessageEmbed()
 			.setColor('#AF70C6')
@@ -98,10 +138,15 @@ client.on('message', message =>{
 	}
 
 	// ECHO COMMAND
-	if (message.content.startsWith(prefix + 'echo')){
+	if (message.content.startsWith(prefix + 'echo')) {
+		//ignores the first 5 characters of the string (')echo')
 		var out = message.content.slice(5);
 		if (message.author.id != gillyID) {
-			if (out.includes('@everyone') || out.includes('@here')) return;
+			//returns if the user tries to @ people they shouldn't be able to
+			if (out.includes('@everyone') || out.includes('@here') || out.includes('<@&')) {
+				message.delete();
+				return message.channel.send('don\'t @ people pls ;-;');
+			}
 		}
 		message.delete();
 		message.channel.send(out);
@@ -116,7 +161,7 @@ client.on('message', message =>{
 		console.log(error);
 		commandLogger.log({
 			level: 'warn',
-			message: error
+			message: 'the command tried was ' + args
 		});
 	}
 	// IGNORE THIS, GARBAGE CODE
@@ -191,14 +236,14 @@ client.on('message', message =>{
  */
 client.on('message', message =>{
 	const messageCheck = message.content.toLowerCase();
+	//tbh i don't really know what this does, just that it doesn't work without it lol
 	member = message.author;
+	//penis length, pretty self explanatory
 	function penisLength(min, max) {
 		return (Math.random() * (max - min) + min);
 	}
-	
-	
-
 	// CONSOLE LOGGING HERE
+	//tbh i could probably do away with console logging altogether. it just provides an easier more accessible way to view messages without having to go into the fucking huge logs folder lol
     if (!message.author.bot){
 		userMention = '<@' + message.author.id + '>';
         console.group("message");
@@ -208,6 +253,8 @@ client.on('message', message =>{
         console.log(message.content);
 		console.groupEnd();
 
+		//this goes here because i don't want to see it in the huge list of consts declared at the start lol
+		//idk it might be more efficient to do it here it might not idrc
 		var today = new Date();
 		var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -226,6 +273,7 @@ client.on('message', message =>{
 			});
 		}
 	}
+
 	/*
 	 * ANTISEMETISM 
 	 * HERE
@@ -233,12 +281,9 @@ client.on('message', message =>{
 	// if (messageCheck.includes('them')) message.channel.send('(((THEM)))');
 	// if (messageCheck.includes('they')) message.channel.send('(((THEY)))');
 
-
-
-
 	// NSFW CHANNEL LOGGING HERE
 	if ((messageCheck.includes('||') || messageCheck.includes('`') || messageCheck.includes('**') || messageCheck.includes('_') || messageCheck.includes('~')) && (!(message.author.bot))) {
-		if (!(message.guild.id == '748381226175561729')) {
+		if (message.guild.id != '748381226175561729') {
 			commandLogger.log({
 				level: 'warn',
 				message: message.guild.id,
@@ -273,8 +318,7 @@ client.on('message', message =>{
 			.setTimestamp();
 		
 		
-		// client.channels.cache.get('772835458416902146').send('user: ' + message.author.username + ' ' + message.author.id + '\n channel: ' + message.channel.name + ' ' + message.channel.id + '\n message: '+ message.content + '\n Time: ' + date + ' ' + time);
-		client.channels.cache.get('772835458416902146').send(nsfwLogEmbed);
+		//client.channels.cache.get('772835458416902146').send(nsfwLogEmbed);
 	}
 
 
@@ -295,13 +339,13 @@ client.on('message', message =>{
 				.setThumbnail(message.author.avatarURL)
 				.setFooter('Message logged by swag lord gilly#0492')
 				.setTimestamp();
-			client.channels.cache.get('772858701848510464').send(curseEmbed);
+			//client.channels.cache.get('772858701848510464').send(curseEmbed);
 		}
 	}
 
 
 	// RESPONSES
-	if (!(message.channel.id == '748381226175561732')) {
+	if (message.channel.id != '748381226175561732') {
 		if (messageCheck == 'lol ') message.channel.send('league of legends :3');
 		if (messageCheck.includes('penis') || messageCheck.includes('cock') || messageCheck.includes('dick')) {
 			var length = penisLength(5, 30);
@@ -313,7 +357,8 @@ client.on('message', message =>{
 			message.channel.send('8' + penis.join('') + 'D');
 		}
 		if (messageCheck.includes('boob')) message.channel.send('o o');
-		if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
+		if (messageCheck.includes('pog') && !message.author.bot) message.channel.send('pogchamp uwu');
+		//if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
 		if (messageCheck == 'wow') message.channel.send('world of warcraft >:3');
 		if (messageCheck.includes('stfu')) message.channel.send('stuf whore ' + userMention);
 		if (messageCheck == 'sup' && !message.author.bot) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
@@ -325,7 +370,9 @@ client.on('message', message =>{
 		if (message.author.bot || (message.author.id == gillyID)) return;
 		message.delete();
 		message.channel.send(userMention + ' is a racist fuck :clown:')
+		//if the server is obamagrad
 		if (message.guild.id == '748381226175561729') {
+			//add muted role
 			message.member.roles.add('753773649315627109');
 			const racistEmbed = new Discord.MessageEmbed()
 				.setTitle('Racist Word Log')
@@ -338,23 +385,20 @@ client.on('message', message =>{
 				})
 				.setFooter('Message logged by swag lord gilly#0492')
 				.setTimestamp();
+			//send the log to the right channel
 			client.channels.cache.get('748597429854666752').send(racistEmbed);
 		}
 	}
 
 
 	// RADLIB WATCH
-	for (var i = 0; i < radlibs.length; i ++){
+	//there's probably an easier way to do this lol
+	for (var i = 0; i < radlibs.length; i++){
+		//i'm exempt from radlib watch
 		if (message.author.id == gillyID) break;
 		if (messageCheck.includes(radlibs[i])) {
 			return message.channel.send("fuck yui radlib watcher absolute scum of leftism you are a stani on society fuck you i hate you \>:(");
 		}
-	}
-
-
-	// IGNORE THIS AS WELL
-	if ((message.channel.id == '770459611228405780') && !(message.author.bot)) {
-		client.channels.cache.get('773738589657104440').send(message.content);
 	}
 	
 	
